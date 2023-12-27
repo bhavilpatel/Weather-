@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="wether.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>Weather</title>
+</head>
+
+<body>
+    <div class="city"><i class="fa-solid fa-chevron-down"></i> &nbsp; <span id="city"></span></div>
+    <div class="body">
+        <div class="main-temp">
+            <div class="temp"><span id="temp"></span>&nbsp;°C </div>
+            <hr class="first-hr" />
+            <div class="main-feel">
+                <div id="main"></div>
+                <hr class="second-hr" />
+                <div class="feel">Feels like : &nbsp;<span id="feel"></span></div>
+            </div>
+        </div>
+        <div class="min-max">
+            <!-- <div class="min-max-temp"><i class="fa-solid fa-temperature-low"></i> Min Temprature: &nbsp; <br><span id="min-temp"></span></div> -->
+            <div class="min-max-temp"><i class="fa-solid fa-temperature-low" id="icon"></i>
+                <div class="min-max-temps">
+                    <div class="title"> Min Temprature: &nbsp; </div>
+                    <div id="min-temp"></div>
+                </div>
+            </div>
+            <hr class="third-hr" />
+            <div class="min-max-temp"><i class="fa-solid fa-temperature-high" id="icon"></i>
+                <div class="min-max-temps">
+                    <div class="title"> Max Temprature: &nbsp; </div>
+                    <div id="max-temp"></div>
+                </div>
+            </div>
+            <!-- <div class="min-max-temp">Max Temprature: &nbsp; <br><span id="max-temp"></span></div> -->
+        </div>
+        <div class="wind">
+            <div class="wind-title">Wind</div>
+            <div class="wind-info">
+                <div class="sub-windInfo"><i class="fa-solid fa-wind" id="icon"></i>
+                    <div class="speed-deg">
+                        <div class="title">Wind Speed: &nbsp; </div>
+                        <div id="wind-speed"></div>
+                    </div>
+                </div>
+                <hr class="forth-hr" />
+                <div class="sub-windInfo"><i class="fa-solid fa-meteor" id="icon"></i>
+                    <div class="speed-deg">
+                        <div class="title">Wind Deg: &nbsp; </div>
+                        <div id="wind-deg"></div>
+                    </div>
+                </div>
+                <!-- <div class="min-max-temp">Max Temprature: &nbsp; <br><span id="max-temp"></span></div> -->
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        fetch('http://api.openweathermap.org/data/2.5/weather?q=rajkot&appid=ecca6ae662a986d35eed3a43a948e0f4&units=metric')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                document.getElementById("city").innerHTML = data.name;
+                document.getElementById("temp").innerHTML = data.main.temp;
+                document.getElementById("main").innerHTML = data.weather[0].main;
+                document.getElementById("feel").innerHTML = data.main.feels_like;
+                document.getElementById("min-temp").innerHTML = data.main.temp_min;
+                document.getElementById("max-temp").innerHTML = data.main.temp_max;
+                document.getElementById("wind-speed").innerHTML = data.wind.speed;
+                document.getElementById("wind-deg").innerHTML = data.wind.deg;
+            })
+            .catch(error => console.error('Error:', error));
+    </script>
+</body>
+
+</html>
